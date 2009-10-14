@@ -1,0 +1,14 @@
+defaults:
+  httperf: "/usr/bin/httperf"
+  host: "localhost"
+  port: "15984"
+  db: "testdb"
+  timeout: 30
+  sessions: 10
+  rate: 100
+  doc_size: 100
+  writes: 1
+  reads: 1
+  report_url: "http://localhost:15984/bench"
+  name: "test123"
+  info: "this is a test"

@@ -1,0 +1,11 @@
+a httperf wrapper for benchmarking couchdb
+
+some of the code was taken from http://github.com/sv/httperf4r
+
+This code is available as Open Source Software under the MIT license.
+
+
+suggestions:
+
+set "ulimit -n 65535"
+change FD_SET_SIZE to 65535 in /usr/include/bits/typesizes.h before compiling httperf

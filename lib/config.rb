@@ -1,0 +1,44 @@
+## Copyright 2009, Joe Williams <joe@joetify.com>
+##
+## Permission is hereby granted, free of charge, to any person
+## obtaining a copy of this software and associated documentation
+## files (the "Software"), to deal in the Software without
+## restriction, including without limitation the rights to use,
+## copy, modify, merge, publish, distribute, sublicense, and/or sell
+## copies of the Software, and to permit persons to whom the
+## Software is furnished to do so, subject to the following
+## conditions:
+##
+## The above copyright notice and this permission notice shall be
+## included in all copies or substantial portions of the Software.
+##
+## THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+## EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+## OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+## NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+## HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+## WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+## FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+## OTHER DEALINGS IN THE SOFTWARE.
+
+class Baracus
+  class Config
+    baracus_config = YAML.load(File.open(ARGV[0]))
+    extend(Mixlib::Config)
+    configure do |c|
+      c[:httperf] = baracus_config["defaults"]["httperf"]
+      c[:host] = baracus_config["defaults"]["host"]
+      c[:port] = baracus_config["defaults"]["port"]
+      c[:db] = baracus_config["defaults"]["db"]
+      c[:timeout] = baracus_config["defaults"]["timeout"]
+      c[:sessions] = baracus_config["defaults"]["sessions"]
+      c[:rate] = baracus_config["defaults"]["rate"]
+      c[:doc_size] = baracus_config["defaults"]["doc_size"]
+      c[:writes] = baracus_config["defaults"]["writes"]
+      c[:reads] = baracus_config["defaults"]["reads"]
+      c[:report_url] = baracus_config["defaults"]["report_url"]
+      c[:bench_name] = baracus_config["defaults"]["name"]
+      c[:info] = baracus_config["defaults"]["info"]
+    end
+  end
+end
