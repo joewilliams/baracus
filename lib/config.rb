@@ -26,18 +26,18 @@ class Baracus
     baracus_config = YAML.load(File.open(ARGV[0]))
     extend(Mixlib::Config)
     configure do |c|
-      c[:httperf] = baracus_config["defaults"]["httperf"]
-      c[:host] = baracus_config["defaults"]["host"]
-      c[:port] = baracus_config["defaults"]["port"]
-      c[:db] = baracus_config["defaults"]["db"]
-      c[:timeout] = baracus_config["defaults"]["timeout"]
-      c[:sessions] = baracus_config["defaults"]["sessions"]
-      c[:rate] = baracus_config["defaults"]["rate"]
-      c[:doc_size] = baracus_config["defaults"]["doc_size"]
-      c[:writes] = baracus_config["defaults"]["writes"]
-      c[:reads] = baracus_config["defaults"]["reads"]
-      c[:report_url] = baracus_config["defaults"]["report_url"]
-      c[:bench_name] = baracus_config["defaults"]["name"]
+      c[:httperf] = baracus_config["httperf"]
+      c[:host] = baracus_config["host"]
+      c[:port] = baracus_config["port"]
+      c[:db] = baracus_config["db"]
+      c[:report_url] = baracus_config["report_url"]
+      c[:bench_name] = baracus_config["name"]
+      c[:timeout] = baracus_config["config"]["timeout"]
+      c[:sessions] = baracus_config["config"]["sessions"]
+      c[:rate] = baracus_config["config"]["rate"]
+      c[:doc_size] = baracus_config["config"]["doc_size"]
+      c[:writes] = baracus_config["config"]["writes"]
+      c[:reads] = baracus_config["config"]["reads"]
       c[:info] = baracus_config["defaults"]["info"]
     end
   end
