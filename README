@@ -1,15 +1,34 @@
-a httperf wrapper for benchmarking couchdb
+httperf wrapper for benchmarking CouchDB
 
-some of the httperf output parsing code was taken from http://github.com/sv/httperf4r
+Features:
+
+* Results sent to CouchDB and printed in TSV
+* Creates wsesslog files dynamically using random data for document writes and _all_docs for reads
+* Lots of knobs: session counts, document size, request rate, etc
+
+
+License:
 
 This code is available as Open Source Software under the MIT license.
 
-usage:
+
+Dependencies:
+
+gem sources -a http://gems.opscode.com/gems
+gem install mixlib-config open4 json rest-client --no-ri --no-rdoc
+
+
+Usage:
 
 $ ./baracus.rb baracus.yml
 
 
-suggestions:
+Suggestions:
 
-set "ulimit -n 65535"
-change FD_SET_SIZE to 65535 in /usr/include/bits/typesizes.h before compiling httperf
+* Set "ulimit -n 65535" before running baracus
+* Change FD_SET_SIZE to 65535 in /usr/include/bits/typesizes.h before compiling httperf
+
+
+Acknowlegdements:
+
+Some of the httperf output parsing code was taken from http://github.com/sv/httperf4r
