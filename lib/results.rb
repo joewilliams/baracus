@@ -69,7 +69,7 @@ class Baracus
       end
 
       results['config'] = Baracus::Config.config
-      results['config'].add(
+      results['config'].store(
         {"database" => "http://#{Baracus::Config.host}:#{Baracus::Config.port}/#{Baracus::Config.db}"}
       )
       results['info'] = Baracus::Config.info
