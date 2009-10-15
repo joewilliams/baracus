@@ -69,9 +69,9 @@ class Baracus
       end
 
       config = {}
-      config.store(Baracus::Config.config)
+      config.update(Baracus::Config.config)
       config.store(
-        {"database" => "http://#{Baracus::Config.host}:#{Baracus::Config.port}/#{Baracus::Config.db}"}
+        "database" => "http://#{Baracus::Config.host}:#{Baracus::Config.port}/#{Baracus::Config.db}"
       )
       results['config'] = config
       results['info'] = Baracus::Config.info
