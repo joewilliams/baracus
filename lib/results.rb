@@ -68,7 +68,8 @@ class Baracus
         results[k] = v.to_f
       end
 
-      config = Baracus::Config.config
+      config = {}
+      config.store(Baracus::Config.config)
       config.store(
         {"database" => "http://#{Baracus::Config.host}:#{Baracus::Config.port}/#{Baracus::Config.db}"}
       )
