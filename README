@@ -17,6 +17,8 @@ Dependencies:
 gem sources -a http://gems.opscode.com/gems
 gem install mixlib-config open4 json rest-client --no-ri --no-rdoc
 
+httperf installed (see suggestions below before installing)
+
 
 Usage:
 
@@ -31,4 +33,5 @@ Suggestions:
 
 Acknowlegdements:
 
+Details on httperf http://www.hpl.hp.com/research/linux/httperf/httperf-man-0.9.txt
 Some of the httperf output parsing code was taken from http://github.com/sv/httperf4r

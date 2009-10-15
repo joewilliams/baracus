@@ -32,8 +32,12 @@ class Baracus
       # create the httperf wsesslog file
       filename = "httperf_write_wsesslog_#{Time.now.to_i}"
       write_wsesslog = File.new(filename, "w")
-      (1..Baracus::Config.writes).each do |write|
-        write_wsesslog.puts "/#{Baracus::Config.db}/ method=POST contents=\'{\"field\": \"#{doc}\"}\'"
+      (1..Baracus::Config.sessions).each do |session|
+        write_wsesslog.puts "# session #{session}"
+        (1..Baracus::Config.writes).each do |write|
+          write_wsesslog.puts "/#{Baracus::Config.db}/ method=POST contents=\'{\"field\": \"#{doc}\"}\'"
+        end
+        write_wsesslog.puts ""
       end
       write_wsesslog.close
       filename
@@ -47,8 +51,12 @@ class Baracus
       # create the httperf wsesslog file
       filename = "httperf_read_wsesslog_#{Time.now.to_i}"
       read_wsesslog = File.new(filename, "w")
-      all_docs_json["rows"].each do |row|
-        read_wsesslog.puts "/#{Baracus::Config.db}/#{row["id"]} method=GET"
+      (1..Baracus::Config.sessions).each do |session|
+        read_wsesslog.puts "# session #{session}"
+        all_docs_json["rows"].each do |row|
+          read_wsesslog.puts "/#{Baracus::Config.db}/#{row["id"]} method=GET"
+        end
+        read_wsesslog.puts ""
       end
       read_wsesslog.close
       filename
