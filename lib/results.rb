@@ -68,15 +68,15 @@ class Baracus
         results[k] = v.to_f
       end
 
-      results['config'] = [
-        "Database: http://#{Baracus::Config.host}:#{Baracus::Config.port}/#{Baracus::Config.db}",
-        "Rate: #{Baracus::Config.rate}",
-        "Sessions: #{Baracus::Config.sessions}",
-        "Writes: #{Baracus::Config.writes}",
-        "Reads: #{Baracus::Config.reads}",
-        "Doc Size: #{Baracus::Config.doc_size}",
-        "Timeout: #{Baracus::Config.timeout}"
-      ]
+      results['config'] = {
+        "database" => "http://#{Baracus::Config.host}:#{Baracus::Config.port}/#{Baracus::Config.db}",
+        "rate" => Baracus::Config.rate,
+        "sessions" => Baracus::Config.sessions,
+        "writes" => Baracus::Config.writes,
+        "reads" => Baracus::Config.reads,
+        "doc_size" => Baracus::Config.doc_size,
+        "timeout" => Baracus::Config.timeout
+      }
       results['info'] = Baracus::Config.info
       results['date'] = Time.now
       results_json = results.to_json

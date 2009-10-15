@@ -11,4 +11,8 @@ defaults:
   reads: 1
   report_url: "http://localhost:15984/bench"
   name: "test123"
-  info: "this is a test"
+  info:
+    version: "0.10.0"
+    storage: "raid10, 4 disks, ebs"
+    anything: "stuff"
+    more: "foo"

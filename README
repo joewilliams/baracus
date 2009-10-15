@@ -1,8 +1,12 @@
 a httperf wrapper for benchmarking couchdb
 
-some of the code was taken from http://github.com/sv/httperf4r
+some of the httperf output parsing code was taken from http://github.com/sv/httperf4r
 
 This code is available as Open Source Software under the MIT license.
+
+usage:
+
+$ ./baracus.rb baracus.yml
 
 
 suggestions:
