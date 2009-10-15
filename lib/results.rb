@@ -79,7 +79,7 @@ class Baracus
       info.update(Baracus::Config.info)
       version_json = RestClient.get("http://#{Baracus::Config.host}:#{Baracus::Config.port}/")
       version = JSON.parse(version_json)
-      info.store("version", version_json["version"])
+      info.store("version", version["version"])
       results['info'] = info
 
       results['date'] = Time.now
