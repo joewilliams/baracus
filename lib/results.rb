@@ -68,10 +68,11 @@ class Baracus
         results[k] = v.to_f
       end
 
-      results['config'] = Baracus::Config.config
-      results['config'].store(
+      config = Baracus::Config.config
+      config.store(
         {"database" => "http://#{Baracus::Config.host}:#{Baracus::Config.port}/#{Baracus::Config.db}"}
       )
+      results['config'] = config
       results['info'] = Baracus::Config.info
       results['date'] = Time.now
       results_json = results.to_json
