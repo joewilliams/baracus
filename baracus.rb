@@ -60,6 +60,7 @@ class Baracus
 
     Baracus::Results.report_results(output, "writes")
 
+    puts "waiting for 60 seconds ...\n"
     sleep 60
 
     # read test
