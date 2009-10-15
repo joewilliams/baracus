@@ -32,6 +32,7 @@ class Baracus
       c[:db] = baracus_config["db"]
       c[:report_url] = baracus_config["report_url"]
       c[:bench_name] = baracus_config["name"]
+      c[:config] = baracus_config["config"]
       c[:timeout] = baracus_config["config"]["timeout"]
       c[:sessions] = baracus_config["config"]["sessions"]
       c[:rate] = baracus_config["config"]["rate"]
