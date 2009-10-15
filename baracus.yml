@@ -12,7 +12,6 @@ config:
   writes: 1
   reads: 1
 info:
-  version: "0.10.0"
   storage: "raid10, 4 disks, ebs"
   anything: "stuff"
   more: "foo"

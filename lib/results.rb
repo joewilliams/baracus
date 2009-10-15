@@ -74,7 +74,14 @@ class Baracus
         "database", "http://#{Baracus::Config.host}:#{Baracus::Config.port}/#{Baracus::Config.db}"
       )
       results['config'] = config
-      results['info'] = Baracus::Config.info
+
+      info = {}
+      info.update(Baracus::Config.info)
+      version_json = RestClient.get("http://#{Baracus::Config.host}:#{Baracus::Config.port}/")
+      version = JSON.parse(version_json)
+      info.store("version", version_json["version"])
+      results['info'] = info
+
       results['date'] = Time.now
       results_json = results.to_json
       RestClient.put("#{Baracus::Config.report_url}/#{Baracus::Config.bench_name}_#{type}_#{Time.now.to_i}", results_json, :content_type => "application/json")
