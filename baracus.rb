@@ -49,7 +49,8 @@ class Baracus
 
 
   def self.main
-    puts "running #{Baracus::Config.bench_name}:"
+
+    puts "Running #{Baracus::Config.bench_name}:"
     puts "Database: http://#{Baracus::Config.host}:#{Baracus::Config.port}/#{Baracus::Config.db}"
     puts "Rate: #{Baracus::Config.rate}"
     puts "Sessions: #{Baracus::Config.sessions}"
@@ -57,6 +58,7 @@ class Baracus
     puts "Reads: #{Baracus::Config.reads}"
     puts "Document Size: #{Baracus::Config.doc_size}"
     puts "Batch=ok: #{Baracus::Config.batchok}\n"
+
 
     # create db
     RestClient.put("#{get_url}", "")
@@ -72,7 +74,7 @@ class Baracus
     puts Baracus::Results.format_results(output)
     puts "#####################\n"
 
-    Baracus::Results.report_results(output, "writes")
+    Baracus::Results.report_results(output, "writes", write_wsesslog)
 
     puts "waiting for 60 seconds ...\n"
     sleep 60
@@ -87,7 +89,7 @@ class Baracus
     puts Baracus::Results.format_results(output)
     puts "#####################"
 
-    Baracus::Results.report_results(output, "reads")
+    Baracus::Results.report_results(output, "reads", read_wsesslog)
 
     # clean up
     RestClient.delete("#{get_url}")
