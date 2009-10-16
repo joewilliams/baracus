@@ -1,6 +1,8 @@
 httperf: "/usr/bin/httperf"
 host: "localhost"
 port: "15984"
+user:
+password:
 db: "testdb"
 report_url: "http://localhost:15984/bench"
 name: "test123"

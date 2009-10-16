@@ -87,6 +87,13 @@ class Baracus
           --port=#{Baracus::Config.port} \
           --wsesslog=#{Baracus::Config.sessions},0,#{wsesslog}
       EOH
+
+      # for basic auth
+      if Baracus::Config.user && Baracus::Config.password
+        auth = Base64.encode64("#{Baracus::Config.user}:#{Baracus::Config.password}")
+        httperf_cmd = httperf_cmd + " --add-header 'Authorization: Basic #{auth}\n'"
+      end
+
       results = ""
       status = popen4(httperf_cmd) do |pid, stdin, stdout, stderr|
         stdout.each do |line|

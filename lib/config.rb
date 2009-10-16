@@ -41,6 +41,8 @@ class Baracus
       c[:reads] = baracus_config["config"]["reads"]
       c[:batchok] = baracus_config["config"]["batchok"]
       c[:info] = baracus_config["info"]
+      c[:user] = baracus_config["user"]
+      c[:password] = baracus_config["password"]
     end
   end
 end

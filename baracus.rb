@@ -29,6 +29,8 @@ require 'json'
 require 'open4'
 include Open4
 require 'mixlib/config'
+require 'base64'
+require 'yaml'
 
 require 'lib/config'
 require 'lib/httperf'
@@ -46,8 +48,12 @@ class Baracus
     puts "Document Size: #{Baracus::Config.doc_size}"
     puts "Batch=ok: #{Baracus::Config.batchok}\n"
 
-    # create bench db
-    RestClient.put("http://#{Baracus::Config.host}:#{Baracus::Config.port}/#{Baracus::Config.db}", "")
+    # create db
+    if Baracus::Config.user && Baracus::Config.password
+      RestClient.put("http://#{Baracus::Config.user}:#{Baracus::Config.password}@#{Baracus::Config.host}:#{Baracus::Config.port}/#{Baracus::Config.db}", "")
+    else
+      RestClient.put("http://#{Baracus::Config.host}:#{Baracus::Config.port}/#{Baracus::Config.db}", "")
+    end
 
     # write test
     write_wsesslog = Baracus::Httperf.create_write_wsesslog
@@ -77,7 +83,11 @@ class Baracus
     Baracus::Results.report_results(output, "reads")
 
     # clean up
-    RestClient.delete("http://#{Baracus::Config.host}:#{Baracus::Config.port}/#{Baracus::Config.db}")
+    if Baracus::Config.user && Baracus::Config.password
+      RestClient.delete("http://#{Baracus::Config.user}:#{Baracus::Config.password}@#{Baracus::Config.host}:#{Baracus::Config.port}/#{Baracus::Config.db}")
+    else
+      RestClient.delete("http://#{Baracus::Config.host}:#{Baracus::Config.port}/#{Baracus::Config.db}")
+    end
   end
 
   main
