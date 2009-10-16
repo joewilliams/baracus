@@ -45,16 +45,19 @@ class Baracus
 
     def self.create_read_wsesslog
       # parse _all_docs to get all the doc ids for reads
-      all_docs = RestClient.get("http://#{Baracus::Config.host}:#{Baracus::Config.port}/#{Baracus::Config.db}/_all_docs?limit=#{Baracus::Config.reads}")
-      all_docs_json = JSON.parse(all_docs)
+      all_docs_json = RestClient.get("http://#{Baracus::Config.host}:#{Baracus::Config.port}/#{Baracus::Config.db}/_all_docs")
+      all_docs = JSON.parse(all_docs_json)
+      all_docs_rows = all_docs["rows"]
 
       # create the httperf wsesslog file
       filename = "httperf_read_wsesslog_#{Time.now.to_i}"
       read_wsesslog = File.new(filename, "w")
       (1..Baracus::Config.sessions).each do |session|
         read_wsesslog.puts "# session #{session}"
-        all_docs_json["rows"].each do |row|
-          read_wsesslog.puts "/#{Baracus::Config.db}/#{row["id"]} method=GET"
+        (1..Baracus::Config.reads).each do |read|
+          # pick a random doc
+          doc_index = rand(all_docs_rows.length)
+          read_wsesslog.puts "/#{Baracus::Config.db}/#{all_docs_rows[doc_index]["id"]} method=GET"
         end
         read_wsesslog.puts ""
       end

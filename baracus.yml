@@ -6,11 +6,11 @@ report_url: "http://localhost:15984/bench"
 name: "test123"
 config:
   timeout: 30
-  sessions: 1000
+  sessions: 100
   rate: 100
-  doc_size: 1000
-  writes: 100
-  reads: 100
+  doc_size: 100
+  writes: 10
+  reads: 10
 info:
   storage: "raid10, 4 disks, ebs"
   anything: "stuff"
