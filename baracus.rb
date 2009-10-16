@@ -43,7 +43,8 @@ class Baracus
     puts "Sessions: #{Baracus::Config.sessions}"
     puts "Writes: #{Baracus::Config.writes}"
     puts "Reads: #{Baracus::Config.reads}"
-    puts "Document Size: #{Baracus::Config.doc_size}\n"
+    puts "Document Size: #{Baracus::Config.doc_size}"
+    puts "Batch=ok: #{Baracus::Config.batchok}\n"
 
     # create bench db
     RestClient.put("http://#{Baracus::Config.host}:#{Baracus::Config.port}/#{Baracus::Config.db}", "")

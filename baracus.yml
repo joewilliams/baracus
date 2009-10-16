@@ -11,6 +11,7 @@ config:
   doc_size: 100
   writes: 10
   reads: 10
+  batchok: false
 info:
   storage: "raid10, 4 disks, ebs"
   anything: "stuff"

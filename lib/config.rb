@@ -39,6 +39,7 @@ class Baracus
       c[:doc_size] = baracus_config["config"]["doc_size"]
       c[:writes] = baracus_config["config"]["writes"]
       c[:reads] = baracus_config["config"]["reads"]
+      c[:batchok] = baracus_config["config"]["batchok"]
       c[:info] = baracus_config["info"]
     end
   end

@@ -29,13 +29,20 @@ class Baracus
       chars = ('a'..'z').to_a + ('A'..'Z').to_a
       doc = (0...Baracus::Config.doc_size).collect { chars[rand(chars.length)] }.join
 
+      # use batch=ok for writes?
+      if Baracus::Config.batchok
+        batchok = "?batch=ok"
+      else
+        batchok = ""
+      end
+
       # create the httperf wsesslog file
       filename = "httperf_write_wsesslog_#{Time.now.to_i}"
       write_wsesslog = File.new(filename, "w")
       (1..Baracus::Config.sessions).each do |session|
         write_wsesslog.puts "# session #{session}"
         (1..Baracus::Config.writes).each do |write|
-          write_wsesslog.puts "/#{Baracus::Config.db}/ method=POST contents=\'{\"field\": \"#{doc}\"}\'"
+          write_wsesslog.puts "/#{Baracus::Config.db}/#{batchok} method=POST contents=\'{\"field\": \"#{doc}\"}\'"
         end
         write_wsesslog.puts ""
       end
