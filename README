@@ -29,7 +29,7 @@ $ ./baracus.rb baracus.yml
 Suggestions:
 
 * Set "ulimit -n 65535" before running baracus
-* Change FD_SET_SIZE to 65535 in /usr/include/bits/typesizes.h before compiling httperf
+* Change FD_SETSIZE to 65535 in /usr/include/bits/typesizes.h before compiling httperf
 
 
 Acknowlegdements:
