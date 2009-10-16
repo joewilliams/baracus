@@ -38,6 +38,16 @@ require 'lib/results'
 
 class Baracus
 
+  def self.get_url
+    if Baracus::Config.user && Baracus::Config.password
+      url = "http://#{Baracus::Config.user}:#{Baracus::Config.password}@#{Baracus::Config.host}:#{Baracus::Config.port}/#{Baracus::Config.db}"
+    else
+      url = "http://#{Baracus::Config.host}:#{Baracus::Config.port}/#{Baracus::Config.db}"
+    end
+    url
+  end
+
+
   def self.main
     puts "running #{Baracus::Config.bench_name}:"
     puts "Database: http://#{Baracus::Config.host}:#{Baracus::Config.port}/#{Baracus::Config.db}"
@@ -49,11 +59,8 @@ class Baracus
     puts "Batch=ok: #{Baracus::Config.batchok}\n"
 
     # create db
-    if Baracus::Config.user && Baracus::Config.password
-      RestClient.put("http://#{Baracus::Config.user}:#{Baracus::Config.password}@#{Baracus::Config.host}:#{Baracus::Config.port}/#{Baracus::Config.db}", "")
-    else
-      RestClient.put("http://#{Baracus::Config.host}:#{Baracus::Config.port}/#{Baracus::Config.db}", "")
-    end
+    RestClient.put("#{get_url}", "")
+
 
     # write test
     write_wsesslog = Baracus::Httperf.create_write_wsesslog
@@ -83,11 +90,7 @@ class Baracus
     Baracus::Results.report_results(output, "reads")
 
     # clean up
-    if Baracus::Config.user && Baracus::Config.password
-      RestClient.delete("http://#{Baracus::Config.user}:#{Baracus::Config.password}@#{Baracus::Config.host}:#{Baracus::Config.port}/#{Baracus::Config.db}")
-    else
-      RestClient.delete("http://#{Baracus::Config.host}:#{Baracus::Config.port}/#{Baracus::Config.db}")
-    end
+    RestClient.delete("#{get_url}")
   end
 
   main
