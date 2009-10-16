@@ -5,6 +5,7 @@ Features:
 * Results sent to CouchDB and printed in TSV
 * Creates wsesslog files dynamically using random data for document writes and _all_docs for reads
 * Lots of knobs: session counts, document size, request rate, etc
+* httperf session work logs are attached to results for replaying later
 
 
 License:
