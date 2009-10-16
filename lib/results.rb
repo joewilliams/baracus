@@ -62,7 +62,7 @@ class Baracus
       line
     end
 
-    def self.report_results(results, type, wsesslog)
+    def self.report_results(results, type, wsesslog, date)
       # convert strings to floats
       results.each do |k, v|
         results[k] = v.to_f
@@ -82,12 +82,12 @@ class Baracus
       info.store("version", version["version"])
       results['info'] = info
 
-      results['date'] = Date
+      results['date'] = date
       results_json = results.to_json
-      reply_json = RestClient.put("#{Baracus::Config.report_url}/#{Baracus::Config.bench_name}_#{type}_#{Date.to_i}", results_json, :content_type => "application/json")
+      reply_json = RestClient.put("#{Baracus::Config.report_url}/#{Baracus::Config.bench_name}_#{type}_#{date.to_i}", results_json, :content_type => "application/json")
       reply = JSON.parse(reply_json)
       wsesslog_file = File.read(wsesslog)
-      RestClient.put("#{Baracus::Config.report_url}/#{reply["id"]}/attachment?rev=#{reply["rev"]}", wsesslog_file)
+      RestClient.put("#{Baracus::Config.report_url}/#{reply["id"]}/attachment?rev=#{reply["rev"]}", wsesslog_file, :content_type => "application/text")
     end
 
   end

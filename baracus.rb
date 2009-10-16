@@ -49,7 +49,7 @@ class Baracus
 
 
   def self.main
-    Date = Time.now
+    date = Time.now
 
     puts "Running #{Baracus::Config.bench_name}:"
     puts "Database: http://#{Baracus::Config.host}:#{Baracus::Config.port}/#{Baracus::Config.db}"
@@ -66,7 +66,7 @@ class Baracus
 
 
     # write test
-    write_wsesslog = Baracus::Httperf.create_write_wsesslog
+    write_wsesslog = Baracus::Httperf.create_write_wsesslog(date)
     results = Baracus::Httperf.run_httperf(write_wsesslog)
 
     puts "### #{Baracus::Config.bench_name} write results ###"
@@ -75,13 +75,13 @@ class Baracus
     puts Baracus::Results.format_results(output)
     puts "#####################\n"
 
-    Baracus::Results.report_results(output, "writes", write_wsesslog)
+    Baracus::Results.report_results(output, "writes", write_wsesslog, date)
 
     puts "waiting for 60 seconds ...\n"
     sleep 60
 
     # read test
-    read_wsesslog = Baracus::Httperf.create_read_wsesslog
+    read_wsesslog = Baracus::Httperf.create_read_wsesslog(date)
     results = Baracus::Httperf.run_httperf(read_wsesslog)
 
     puts "### #{Baracus::Config.bench_name} read results ###"
@@ -90,7 +90,7 @@ class Baracus
     puts Baracus::Results.format_results(output)
     puts "#####################"
 
-    Baracus::Results.report_results(output, "reads", read_wsesslog)
+    Baracus::Results.report_results(output, "reads", read_wsesslog, date)
 
     # clean up
     RestClient.delete("#{get_url}")

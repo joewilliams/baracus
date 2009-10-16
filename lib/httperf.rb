@@ -24,7 +24,7 @@
 class Baracus
   class Httperf
 
-    def self.create_write_wsesslog
+    def self.create_write_wsesslog(date)
       # create some random data for the doc writes
       chars = ('a'..'z').to_a + ('A'..'Z').to_a
       doc = (0...Baracus::Config.doc_size).collect { chars[rand(chars.length)] }.join
@@ -37,7 +37,7 @@ class Baracus
       end
 
       # create the httperf wsesslog file
-      filename = "httperf_write_wsesslog_#{Date.to_i}"
+      filename = "httperf_write_wsesslog_#{date.to_i}"
       write_wsesslog = File.new(filename, "w")
       (1..Baracus::Config.sessions).each do |session|
         write_wsesslog.puts "# session #{session}"
@@ -50,14 +50,14 @@ class Baracus
       filename
     end
 
-    def self.create_read_wsesslog
+    def self.create_read_wsesslog(date)
       # parse _all_docs to get all the doc ids for reads
       all_docs_json = RestClient.get("http://#{Baracus::Config.host}:#{Baracus::Config.port}/#{Baracus::Config.db}/_all_docs")
       all_docs = JSON.parse(all_docs_json)
       all_docs_rows = all_docs["rows"]
 
       # create the httperf wsesslog file
-      filename = "httperf_read_wsesslog_#{Date.to_i}"
+      filename = "httperf_read_wsesslog_#{date.to_i}"
       read_wsesslog = File.new(filename, "w")
       (1..Baracus::Config.sessions).each do |session|
         read_wsesslog.puts "# session #{session}"
