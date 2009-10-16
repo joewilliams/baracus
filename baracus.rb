@@ -49,6 +49,7 @@ class Baracus
 
 
   def self.main
+    Date = Time.now
 
     puts "Running #{Baracus::Config.bench_name}:"
     puts "Database: http://#{Baracus::Config.host}:#{Baracus::Config.port}/#{Baracus::Config.db}"

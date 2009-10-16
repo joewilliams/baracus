@@ -37,7 +37,7 @@ class Baracus
       end
 
       # create the httperf wsesslog file
-      filename = "httperf_write_wsesslog_#{Time.now.to_i}"
+      filename = "httperf_write_wsesslog_#{Date.to_i}"
       write_wsesslog = File.new(filename, "w")
       (1..Baracus::Config.sessions).each do |session|
         write_wsesslog.puts "# session #{session}"
@@ -57,7 +57,7 @@ class Baracus
       all_docs_rows = all_docs["rows"]
 
       # create the httperf wsesslog file
-      filename = "httperf_read_wsesslog_#{Time.now.to_i}"
+      filename = "httperf_read_wsesslog_#{Date.to_i}"
       read_wsesslog = File.new(filename, "w")
       (1..Baracus::Config.sessions).each do |session|
         read_wsesslog.puts "# session #{session}"

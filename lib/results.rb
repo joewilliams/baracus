@@ -82,9 +82,9 @@ class Baracus
       info.store("version", version["version"])
       results['info'] = info
 
-      results['date'] = Time.now
+      results['date'] = Date
       results_json = results.to_json
-      reply_json = RestClient.put("#{Baracus::Config.report_url}/#{Baracus::Config.bench_name}_#{type}_#{Time.now.to_i}", results_json, :content_type => "application/json")
+      reply_json = RestClient.put("#{Baracus::Config.report_url}/#{Baracus::Config.bench_name}_#{type}_#{Date.to_i}", results_json, :content_type => "application/json")
       reply = JSON.parse(reply_json)
       wsesslog_file = File.read(wsesslog)
       RestClient.put("#{Baracus::Config.report_url}/#{reply["id"]}/attachment?rev=#{reply["rev"]}", wsesslog_file)
