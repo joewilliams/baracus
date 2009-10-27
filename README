@@ -30,7 +30,7 @@ Suggestions:
 
 * Set "ulimit -n 65535" before running baracus
 * Change FD_SETSIZE to 65535 in /usr/include/bits/typesizes.h before compiling httperf
-
+* For tests with more than 1000 sessions increase MAX_SESSION_TEMPLATES in gen/wsesslog.c before compiling httperf
 
 Acknowlegdements:
 
