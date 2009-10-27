@@ -77,15 +77,16 @@ class Baracus
       filename
     end
 
-      # for basic auth
-    if Baracus::Config.user && Baracus::Config.password
-      auth = Base64.encode64("#{Baracus::Config.user}:#{Baracus::Config.password}")
-      auth_switch = " --add-header 'Authorization: Basic #{auth}'"
-    else
-      auth_switch = ""
-    end
 
     def self.run_httperf(wsesslog)
+      # for basic auth
+      if Baracus::Config.user && Baracus::Config.password
+        auth = Base64.encode64("#{Baracus::Config.user}:#{Baracus::Config.password}")
+        auth_switch = " --add-header 'Authorization: Basic #{auth}'"
+      else
+        auth_switch = ""
+      end
+
       # run httperf with the wsesslog and write results to file
       httperf_cmd = <<-EOH
         #{Baracus::Config.httperf} \
