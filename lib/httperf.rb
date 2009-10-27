@@ -52,7 +52,12 @@ class Baracus
 
     def self.create_read_wsesslog(date)
       # parse _all_docs to get all the doc ids for reads
-      all_docs_json = RestClient.get("http://#{Baracus::Config.host}:#{Baracus::Config.port}/#{Baracus::Config.db}/_all_docs")
+      if Baracus::Config.user && Baracus::Config.password
+        all_docs_json = RestClient.get("http://#{Baracus::Config.user}:#{Baracus::Config.password}@#{Baracus::Config.host}:#{Baracus::Config.port}/#{Baracus::Config.db}/_all_docs")
+      else
+        all_docs_json = RestClient.get("http://#{Baracus::Config.host}:#{Baracus::Config.port}/#{Baracus::Config.db}/_all_docs")
+      end
+
       all_docs = JSON.parse(all_docs_json)
       all_docs_rows = all_docs["rows"]
 
@@ -72,6 +77,14 @@ class Baracus
       filename
     end
 
+      # for basic auth
+    if Baracus::Config.user && Baracus::Config.password
+      auth = Base64.encode64("#{Baracus::Config.user}:#{Baracus::Config.password}")
+      auth_switch = " --add-header 'Authorization: Basic #{auth}'"
+    else
+      auth_switch = ""
+    end
+
     def self.run_httperf(wsesslog)
       # run httperf with the wsesslog and write results to file
       httperf_cmd = <<-EOH
@@ -85,14 +98,8 @@ class Baracus
           --max-piped-calls=32 \
           --server=#{Baracus::Config.host} \
           --port=#{Baracus::Config.port} \
-          --wsesslog=#{Baracus::Config.sessions},0,#{wsesslog}
+          --wsesslog=#{Baracus::Config.sessions},0,#{wsesslog} #{auth_switch}
       EOH
-
-      # for basic auth
-      if Baracus::Config.user && Baracus::Config.password
-        auth = Base64.encode64("#{Baracus::Config.user}:#{Baracus::Config.password}")
-        httperf_cmd = httperf_cmd + " --add-header 'Authorization: Basic #{auth}\n'"
-      end
 
       results = ""
       status = popen4(httperf_cmd) do |pid, stdin, stdout, stderr|
