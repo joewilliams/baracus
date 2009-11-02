@@ -1,10 +1,10 @@
 httperf: "/usr/bin/httperf"
 host: "localhost"
-port: "15984"
+port: "5984"
 user:
 password:
 db: "testdb"
-report_url: "http://localhost:15984/bench"
+report_url: "http://localhost:5984/bench"
 name: "test123"
 config:
   timeout: 30
