@@ -21,6 +21,9 @@
 ## FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 ## OTHER DEALINGS IN THE SOFTWARE.
 
+require 'json'
+require 'rest_client'
+
 class Baracus
   class Results
 

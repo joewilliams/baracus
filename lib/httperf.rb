@@ -21,6 +21,10 @@
 ## FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 ## OTHER DEALINGS IN THE SOFTWARE.
 
+require 'base64'
+require 'open4'
+include Open4
+
 class Baracus
   class Httperf
 

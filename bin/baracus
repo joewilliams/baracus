@@ -23,18 +23,14 @@
 ## FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 ## OTHER DEALINGS IN THE SOFTWARE.
 
+$:.unshift(File.join(File.dirname(__FILE__), "..", "lib"))
+
 require 'rubygems'
 require 'rest_client'
-require 'json'
-require 'open4'
-include Open4
-require 'mixlib/config'
-require 'base64'
-require 'yaml'
 
-require 'lib/config'
-require 'lib/httperf'
-require 'lib/results'
+require 'config'
+require 'httperf'
+require 'results'
 
 class Baracus
 

@@ -21,6 +21,9 @@
 ## FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 ## OTHER DEALINGS IN THE SOFTWARE.
 
+require 'mixlib/config'
+require 'yaml'
+
 class Baracus
   class Config
     baracus_config = YAML.load(File.open(ARGV[0]))
