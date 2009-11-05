@@ -13,18 +13,11 @@ License:
 This code is available as Open Source Software under the MIT license.
 
 
-Dependencies:
-
-gem sources -a http://gems.opscode.com/gems
-gem install mixlib-config open4 json rest-client --no-ri --no-rdoc
-
-httperf installed (see suggestions below before installing)
-
-
 Usage:
 
-$ ./baracus.rb baracus.yml
-
+$ gem sources -a http://gemcutter.org
+$ gem install baracus
+$ baracus /path/baracus.yml
 
 Suggestions:
 
