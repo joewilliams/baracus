@@ -24,6 +24,7 @@
 require 'base64'
 require 'open4'
 include Open4
+require "json"
 
 class Baracus
   class Httperf
@@ -70,11 +71,16 @@ class Baracus
       read_wsesslog = File.new(filename, "w")
       (1..Baracus::Config.sessions).each do |session|
         read_wsesslog.puts "# session #{session}"
+        reads = []
         (1..Baracus::Config.reads).each do |read|
           # pick a random doc
           doc_index = rand(all_docs_rows.length)
-          read_wsesslog.puts "/#{Baracus::Config.db}/#{all_docs_rows[doc_index]["id"]} method=GET"
+          reads << all_docs_rows[doc_index]["id"]
         end
+        contents_hash = {"keys" => reads}
+        contents_json = contents_hash.to_json
+        contents = contents_json.gsub(/\"/, "\\\"")
+        read_wsesslog.puts "/#{Baracus::Config.db}/_all_docs contents=#{contents} method=POST"
         read_wsesslog.puts ""
       end
       read_wsesslog.close
