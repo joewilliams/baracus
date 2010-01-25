@@ -90,6 +90,10 @@ class Baracus
       else
         auth_switch = ""
       end
+      
+      unless File.exist?(Baracus::Config.httperf)
+        abort("#{Baracus::Config.httperf} does not exist, please adjust config")
+      end
 
       # run httperf with the wsesslog and write results to file
       httperf_cmd = <<-EOH
